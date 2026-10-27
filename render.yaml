@@ -1,0 +1,19 @@
+# Render Blueprint for TubeAgents — deploy from a Git repo in one step.
+# Fill the "sync: false" values in the Render dashboard (never in this file).
+services:
+  - type: web
+    name: tubeagents
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python -m uvicorn backend.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: GOOGLE_OAUTH_CLIENT_ID
+        sync: false
+      - key: GOOGLE_OAUTH_CLIENT_SECRET
+        sync: false
+      - key: SECRET_KEY
+        generateValue: true
+      - key: FERNET_KEY
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
